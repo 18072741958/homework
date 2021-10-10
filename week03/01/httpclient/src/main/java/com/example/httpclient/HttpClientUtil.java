@@ -1,4 +1,4 @@
-package com.example;
+package com.example.httpclient;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -12,10 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HttpClientUtil {
@@ -28,13 +26,14 @@ public class HttpClientUtil {
         get(LOCALHOST_URL);
     }
 
-    public static void get(String url) {
+    public static String get(String url) {
         HttpGet get = new HttpGet(url);
+        String message = "";
         try {
             HttpResponse response = httpClient.execute(get);
             if (200 == response.getStatusLine().getStatusCode()) {
                 HttpEntity httpEntity = response.getEntity();
-                String message = EntityUtils.toString(httpEntity, "utf-8");
+                message = EntityUtils.toString(httpEntity, "utf-8");
                 System.out.println(message);
             } else {
                 System.out.println("error" + response.getStatusLine().getStatusCode());
@@ -48,17 +47,19 @@ public class HttpClientUtil {
                 e.printStackTrace();
             }
         }
+        return message;
     }
 
-    public static void post(String url, List<NameValuePair> nvps) {
+    public static String post(String url, List<NameValuePair> nvps) {
         HttpPost post = new HttpPost(url);
+        String message = "";
         CloseableHttpResponse response = null;
         try {
             UrlEncodedFormEntity uef = new UrlEncodedFormEntity(nvps, "utf-8");
             post.setEntity(uef);
             response = httpClient.execute(post);
             HttpEntity entity = response.getEntity();
-            String message = EntityUtils.toString(entity, "utf-8");
+            message = EntityUtils.toString(entity, "utf-8");
             Header[] headers = response.getAllHeaders();
             if (message != null) {
                 System.out.println("headers" + headers);
@@ -76,5 +77,6 @@ public class HttpClientUtil {
                 e.printStackTrace();
             }
         }
+        return message;
     }
 }
