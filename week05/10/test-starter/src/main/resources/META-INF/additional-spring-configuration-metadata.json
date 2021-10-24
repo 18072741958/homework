@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "test.id",
+      "type": "java.lang.Integer",
+      "description": "test id value",
+      "defaultValue": 0
+    },
+    {
+      "name": "test.name",
+      "type": "java.lang.String",
+      "description": "test name value",
+      "defaultValue": "wl"
+    }
+  ]
+}
