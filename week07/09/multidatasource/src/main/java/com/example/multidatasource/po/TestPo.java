@@ -5,6 +5,13 @@ public class TestPo{
 
     private String name;
 
+    public TestPo(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public TestPo(){}
+
     public Integer getId() {
         return id;
     }
