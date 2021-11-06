@@ -34,7 +34,7 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public DataSource routingDataSource(@Qualifier("masterDataSource") DataSource masterDataSource
+    public DataSource myRoutingDataSource(@Qualifier("masterDataSource") DataSource masterDataSource
             ,@Qualifier("slaveDataSource1") DataSource slaveDatasource1
             ,@Qualifier("slaveDataSource2") DataSource slaveDatasource2){
         Map<Object,Object> datasources = new HashMap<>();

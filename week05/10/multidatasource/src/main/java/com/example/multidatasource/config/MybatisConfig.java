@@ -11,19 +11,20 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
 public class MybatisConfig {
 
-    @Resource(name = "routingDataSource")
-    private MyRoutingDataSource myRoutingDataSource;
+    @Resource(name = "myRoutingDataSource")
+    private DataSource myRoutingDataSource;
 
     @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(myRoutingDataSource);
-        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classPath:mybatis/*.xml"));
+        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/*.xml"));
         return sqlSessionFactory.getObject();
     }
 
